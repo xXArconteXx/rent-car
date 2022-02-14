@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Seeders;
-
+use Faker\Generator as Faker;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class VehicleSeeder extends Seeder
@@ -11,7 +12,7 @@ class VehicleSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         //
     }
