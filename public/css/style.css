@@ -1,0 +1,64 @@
+@font-face {
+    font-family: 'NikkyouSans-mLKax';
+    /* src: url('{{ assets('font/NikkyouSans-mLKax.ttf') }}')format('truetype'); */
+    src: url('../font/NikkyouSans-mLKax.ttf')format('truetype');
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.nav {
+    font-family: 'NikkyouSans-mLKax';
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.container_content {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    text-align: center;
+    padding: 50px;
+}
+
+.product_content {
+    position: relative;
+    background-color: white;
+    padding: 10px;
+    border: 2px solid;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #0a58ca
+}
+
+.accelerated.box {
+    transition: transform 750ms;
+    will-change: transform;
+}
+
+.accelerated.box:hover,
+.accelerated.box:focus {
+    transform: translateY(-10px);
+}
+
+img {
+    width: 50%;
+    height: 100 vh;
+    display:block;
+    margin:auto;
+} 
+
+.icon {
+    font-size: 25px !important; 
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: auto;
+    margin: 15px;
+}

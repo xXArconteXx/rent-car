@@ -16,19 +16,19 @@ class CategorySeeder extends Seeder
     {
             DB::table('categories')->insert([
                 'name' => 'Monovolumen',
-                'image' => '{{URL:asstes("image/monovolumen.webp")}}',
+                'image' => "image/monovolumen.webp",
             ]);
             DB::table('categories')->insert([
                 'name' => 'Furgoneta',
-                'image' => '{{URL:asstes("image/furgoneta.webp")}}',
+                'image' => "image/furgoneta.webp",
             ]);
             DB::table('categories')->insert([
                 'name' => 'Eléctricos',
-                'image' => '{{URL:asstes("image/electrico.webp")}}',
+                'image' => "image/electrico.webp",
             ]);
             DB::table('categories')->insert([
                 'name' => 'Camión',
-                'image' => '{{URL:asstes("image/camion.webp")}}',
+                'image' => "image/camion.webp",
             ]);
         
     }
