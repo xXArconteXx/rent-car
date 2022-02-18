@@ -1,22 +1,28 @@
 @font-face {
     font-family: 'NikkyouSans-mLKax';
-    /* src: url('{{ assets('font/NikkyouSans-mLKax.ttf') }}')format('truetype'); */
-    src: url('../font/NikkyouSans-mLKax.ttf')format('truetype');
+    src: url('{{ assets('font/NikkyouSans-mLKax.ttf') }}')format('truetype');
+    /* src: url('../font/NikkyouSans-mLKax.ttf')format('truetype'); */
 }
 
 
 * {
     margin: 0;
     padding: 0;
+    font-weight: bold;
+}
+
+.category {
+    text-align: center;
 }
 
 .nav {
     font-family: 'NikkyouSans-mLKax';
+    color: white;
 }
 
 a {
     text-decoration: none;
-    color: black;
+    color: rgba(0, 0, 0, 0.459);
 }
 
 .container_content {

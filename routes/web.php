@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +18,9 @@ use App\Http\Controllers\VehicleController;
 
 // mod seeder con datos de vehiculos
 Route::get('/', [VehicleController::class, 'viewAll']);
-Route::get('/admin/vehicles', [VehicleController::class, 'adminVeh']);
-// Route::put('/category/{id}', [VehicleController::class, 'index']);
+Route::get('/admin/index', [VehicleController::class, 'adminVeh2']);
+Route::get('/admin/vehicles/list', [VehicleController::class, 'adminVeh']);
+Route::get('/admin/users/list', [UserController::class, 'adminUser']);
 Route::get('/category/{id}', [VehicleController::class, 'index']);
 
 Auth::routes();
