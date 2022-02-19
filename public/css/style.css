@@ -56,12 +56,12 @@ a {
 img {
     width: 50%;
     height: 100 vh;
-    display:block;
-    margin:auto;
-} 
+    display: block;
+    margin: auto;
+}
 
 .icon {
-    font-size: 25px !important; 
+    font-size: 25px !important;
     position: absolute;
     right: 0;
     top: 0;

@@ -10,7 +10,7 @@ class VehicleController extends Controller
     public function viewAll(){
         $categories = Category::all();
         $vehicles = Vehicle::paginate(12);
-        return view('contentLayout.index', compact('vehicles', 'categories'));
+        return view('content-layout.index', compact('vehicles', 'categories'));
     }
 
     public function adminVeh(){
@@ -32,5 +32,12 @@ class VehicleController extends Controller
         return view('category.index', compact('vehicles', 'categories', 'ident'));
     }
 
-    
+    public function show(Vehicle $vehicle){
+        $categories = Category::all();
+        //dd == varDump on Laravel
+        // dd($vehicle);
+        return view('content-layout.show-vehicle', compact('vehicle', 'categories'));
+    }
+
+
 }
