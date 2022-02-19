@@ -38,9 +38,14 @@
                 </button>
                 @if (@Auth::user() != null)
                     @if(@Auth::user()->hasRole('admin'))
-                        <ul class="navbar-nav ms-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/index') }}">Administration</a>
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{url('admin/vehicles/list')}}">Vehicles</a>
+                                    <a class="dropdown-item" href="{{url('admin/users/list')}}">Users</a>
+                                    <a class="dropdown-item" href="{{url('admin/vehicles/rentings')}}">Rentings</a>
+                                </div>
                             </li>
                         </ul>
                     @endif

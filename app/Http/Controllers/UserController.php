@@ -11,4 +11,5 @@ class UserController extends Controller
         $users = User::paginate(12);
         return view('admin.users.list', compact('users'));
     }
+
 }
