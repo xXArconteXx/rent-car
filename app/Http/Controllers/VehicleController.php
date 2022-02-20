@@ -19,12 +19,6 @@ class VehicleController extends Controller
         return view('admin.vehicles.list', compact('vehicles', 'categories'));
     }
 
-    public function adminVeh2(){
-        $categories = Category::all();
-        $vehicles = Vehicle::paginate(12);
-        return view('admin.index', compact('vehicles', 'categories'));
-    }
-
     public function index($id){
         $categories = Category::all();
         $ident = intval($id)-1;

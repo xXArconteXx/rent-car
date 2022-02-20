@@ -17,7 +17,7 @@ class CreateRentsTable extends Migration
             $table->id();
             $table->datetime("date_start");
             $table->datetime("date_end");
-            $table->datetime("date_give");
+            $table->datetime("date_give")->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->timestamps();

@@ -34,6 +34,14 @@ a {
     padding: 50px;
 }
 
+.container-date {
+    text-align: center;
+    margin: auto;
+    max-width: 60%;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
 .product_content {
     position: relative;
     background-color: white;

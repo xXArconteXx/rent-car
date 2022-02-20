@@ -9,7 +9,7 @@
     <p>Seats: {{$vehicle->seats}}</p>
     <p>Price: {{$vehicle->price}}€</p>
     <i class="fa-solid fa-basket-shopping icon"></i>
-    <a href="{{ url('content-layout/form') }}">
+    <a href='{{ url("content-layout/form?id=$vehicle->id") }}'>
         <button type="button" class="btn btn-outline-dark">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket3-fill"
                 viewBox="0 0 16 16">

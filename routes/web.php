@@ -17,26 +17,27 @@ use App\Http\Controllers\UserController;
 |
 */
 
+
 // mod seeder con datos de vehiculos
 Route::get('/', [VehicleController::class, 'viewAll']);
 Route::get('/category/{id}', [VehicleController::class, 'index']);
-Route::get('/content-layout/show-vehicle/{vehicle}', [VehicleController::class, 'show']);
 
-Route::group(['middleware' => ['role:client']], function () {
-    Route::get('/content-layout/form', [RentController::class, 'create']);
-}
+Route::get('/content-layout/show-vehicle/{vehicle}', [VehicleController::class, 'show']);
+Route::get('/content-layout/form', [RentController::class, 'create']);
 
 Auth::routes();
+
+Route::group(['middleware' => ['role:client']], function () {
+    Route::post('/content-layout/form', [RentController::class, 'store'])->name('form-rent');
+});
 
 Route::group(['middleware' => ['role:admin']], function () {
     //accebility routes for admins
     Route::get('/admin/index', [VehicleController::class, 'adminVeh2']);
-    Route::get('/admin/vehicles/list', [VehicleController::class, 'adminVeh']);
     Route::get('/admin/users/list', [UserController::class, 'adminUser']);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 // con el middleware obligamos que, para acceder a cierto ubicacion de la pags
 // Route::get('/prestamos', [App\Http\Controllers\GestionController::class, 'prestamos'])->middleware('auth');

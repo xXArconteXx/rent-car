@@ -20,7 +20,51 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {{-- Jquery date range links --}}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script>
+        let date1 = "";
+        let date2 = "";
+        $( function() {
+        var dateFormat = "dd/mm/yy",
+        from = $( "#from" )
+            .datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3
+            })
+            .on( "change", function() {
+                to.datepicker( "option", "minDate", getDate( this ) );
+                date1 = getDate(this);
+                document.getElementById("date").innerHTML = "From" + date1;
+            }),
+            to = $( "#to" ).datepicker({
+                defaultDate: "+1w",
+                changeMonth: true,
+                numberOfMonths: 3
+            })
+            .on( "change", function() {
+                from.datepicker( "option", "maxDate", getDate( this ) );
+                date2 = getDate(this);
+                document.getElementById("date").innerHTML += " To" + date2;
 
+            });
+
+            function getDate( element ) {
+                var date;
+                try {
+                    date = $.datepicker.parseDate( dateFormat, element.value );
+                } catch( error ) {
+                    date = null;
+                }
+
+                return date;
+            }
+        } );
+    </script>
 
 </head>
 
@@ -37,18 +81,18 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 @if (@Auth::user() != null)
-                    @if(@Auth::user()->hasRole('admin'))
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{{url('admin/vehicles/list')}}">Vehicles</a>
-                                    <a class="dropdown-item" href="{{url('admin/users/list')}}">Users</a>
-                                    <a class="dropdown-item" href="{{url('admin/vehicles/rentings')}}">Rentings</a>
-                                </div>
-                            </li>
-                        </ul>
-                    @endif
+                @if(@Auth::user()->hasRole('admin'))
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{url('admin/vehicles/list')}}">Vehicles</a>
+                            <a class="dropdown-item" href="{{url('admin/users/list')}}">Users</a>
+                            <a class="dropdown-item" href="{{url('admin/vehicles/rentings')}}">Rentings</a>
+                        </div>
+                    </li>
+                </ul>
+                @endif
                 @endif
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
