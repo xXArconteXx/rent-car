@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use App\Models\Category;
+
 class VehicleController extends Controller
 {
     public function viewAll(){
@@ -33,5 +34,19 @@ class VehicleController extends Controller
         return view('content-layout.show-vehicle', compact('vehicle', 'categories'));
     }
 
+    // revisar
+    public function edit(Vehicle $vehicle){
+        // dd($vehicle);
+        $categories = Category::all();
+        // $v= Vehicle::where('id', $vehicle);
+        // dd($v);
+        return view('admin.vehicles.edit', compact('vehicle', 'categories'));
+    }
+
+    public function update(Request $request, Vehicle $vehicle){
+        // Vehicle::
+        // dd($request->all(), $vehicle);
+        $vehicle->update($request->all());
+    }
 
 }

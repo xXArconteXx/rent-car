@@ -29,12 +29,16 @@ Auth::routes();
 
 Route::group(['middleware' => ['role:client']], function () {
     Route::post('/content-layout/form', [RentController::class, 'store'])->name('form-rent');
+    Route::get('/content-layout/acknowledge', [RentController::class, 'index'])->name('acknowledge');
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
     //accebility routes for admins
-    Route::get('/admin/index', [VehicleController::class, 'adminVeh2']);
+    Route::get('/admin/vehicles/list', [VehicleController::class, 'adminVeh']);
+    Route::get('/admin/vehicles/edit/{vehicle}', [VehicleController::class, 'edit'])->name('vehicle.edit');
+    Route::post('/admin/vehicles/edit/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
     Route::get('/admin/users/list', [UserController::class, 'adminUser']);
+    Route::get('/admin/rentings/list', [RentController::class, 'adminRent']);
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

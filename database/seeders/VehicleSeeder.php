@@ -12,26 +12,7 @@ class VehicleSeeder extends Seeder
      *
      * @return void
      */
-    // public string $rute = '/public/carImages';
-
     
-    // public function showFiles($path){
-    //     $dir = opendir($path);
-    //     $files = array();
-    //     while ($current = readdir($dir)){
-    //         if( $current != "." && $current != "..") {
-    //             if(is_dir($path.$current)) {
-    //                 showFiles($path.$current.'/');
-    //             }
-    //             else {
-    //                 $files[] = $current;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // showFiles($rute);
-
     public function run(Faker $faker)
     {
         for($i=0; $i<11; $i++){

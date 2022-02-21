@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="product_content accelerated box">
+<div class="content_one">
     <img src='{{URL::asset("$vehicle->image")}}'>
     <p>Modelo: {{$vehicle->model}}</p>
     <p>Descripcion: {{$vehicle->description}}</p>

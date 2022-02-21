@@ -11,8 +11,15 @@ use App\Models\Rent;
 
 class RentController extends Controller
 {
-    public function index(){
+    public function index (){
+        $categories = Category::all();
+        return view('content-layout.acknowledge', compact('categories'));
+    }
 
+    public function adminRent(){
+        $categories = Category::all();
+        $rents = Rent::paginate(12);
+        return view('admin.rentings.list', compact('rents', 'categories'));
     }
 
     public function create(){
@@ -41,7 +48,7 @@ class RentController extends Controller
             "user_id"=>$user_id,
             "vehicle_id"=>$vehicle_id,
         ]);
-        return redirect('/');
+        return redirect(route('acknowledge'));
     }
 
     public function edit(){
