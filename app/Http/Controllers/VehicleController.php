@@ -34,19 +34,35 @@ class VehicleController extends Controller
         return view('content-layout.show-vehicle', compact('vehicle', 'categories'));
     }
 
-    // revisar
+    public function create(){
+        $categories = Category::all();
+        return view(route('vehicle.create', compact('categories')));
+    }
+
+    public function store(Request $request){
+        $categories = Category::all();
+        Vehicle::create($request->all());
+        return redirect(route('vehicle.list', compact('categories')));
+    }
+
+    //function for open the form vehicle when give all vehicle parameters
     public function edit(Vehicle $vehicle){
         // dd($vehicle);
         $categories = Category::all();
-        // $v= Vehicle::where('id', $vehicle);
-        // dd($v);
         return view('admin.vehicles.edit', compact('vehicle', 'categories'));
     }
 
+    //function for change the vehicle parameters on de data base
     public function update(Request $request, Vehicle $vehicle){
         // Vehicle::
         // dd($request->all(), $vehicle);
         $vehicle->update($request->all());
     }
 
+    public function destroyer(Vehicle $vehicle)
+    {
+        $categories = Category::all();
+        $vehicle->delete();
+        return redirect(route('vehicle.list', compact('categories')));
+    }
 }

@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'NikkyouSans-mLKax';
-    src: url('{{ assets('font/NikkyouSans-mLKax.ttf') }}')format('truetype');
-    /* src: url('../font/NikkyouSans-mLKax.ttf')format('truetype'); */
+    src: url("{{ public_path('fonts/NikkyouSans-mLKax.ttf') }}");
+
 }
 
 
@@ -9,15 +9,11 @@
     margin: 0;
     padding: 0;
     font-weight: bold;
-    /* text-align: center; */
+    font-family: 'NikkyouSans-mLKax';
 }
 
 .category {
     text-align: center;
-}
-
-.navbar{
-    height: 65px;
 }
 
 a {
@@ -82,4 +78,8 @@ img {
     top: 0;
     padding: auto;
     margin: 15px;
+}
+
+.ui-datepicker-title{
+    margin: auto;
 }

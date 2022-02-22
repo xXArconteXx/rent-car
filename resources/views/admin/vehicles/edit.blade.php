@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+<h1 style="text-align: center;">Vehicle: {{$vehicle->id}}</h1>
 <div class="container">
     <form method="POST" action="{{ route('vehicle.update', $vehicle->id) }}">
         @csrf
@@ -41,6 +42,5 @@
             Reset
         </button>
     </form>
-    <p id="date"></p>
 </div>
 @endsection

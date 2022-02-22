@@ -5,11 +5,9 @@
     <form method="POST" action="{{ route('form-rent') }}">
         @csrf
         <h3>You must to select the rent range</h3>
-        {{-- <p id="date"></p> --}}
         <div>
-
             <div class="bg-primary container-date">
-                <input type="text" id="from" name="from">
+                <input class="form-control" type="text" id="from" name="from">
                 <div class="btn btn-primary">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-calendar" viewBox="0 0 16 16">
@@ -92,7 +90,7 @@
 
         <div>
             <div class="bg-warning container-date">
-                <input type="text" id="to" name="to">
+                <input class="form-control" type="text" id="to" name="to">
                 <div class="btn btn-warning">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-calendar" viewBox="0 0 16 16">
@@ -181,6 +179,5 @@
             Reset
         </button>
     </form>
-    <p id="date"></p>
 </div>
 @endsection

@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\RentController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RentController;
+use App\Models\Vehicle;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,16 +33,29 @@ Route::group(['middleware' => ['role:client']], function () {
     Route::get('/content-layout/acknowledge', [RentController::class, 'index'])->name('acknowledge');
 });
 
+//accebility routes for admins
 Route::group(['middleware' => ['role:admin']], function () {
-    //accebility routes for admins
-    Route::get('/admin/vehicles/list', [VehicleController::class, 'adminVeh']);
+    // vehicles
+    Route::get('/admin/vehicles/list', [VehicleController::class, 'adminVeh'])->name('vehicle.list');
+    Route::get('/admin/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
+    Route::post('/admin/vehicles/create', [VehicleController::class, 'store'])->name('vehicle.store');
     Route::get('/admin/vehicles/edit/{vehicle}', [VehicleController::class, 'edit'])->name('vehicle.edit');
     Route::post('/admin/vehicles/edit/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
-    Route::get('/admin/users/list', [UserController::class, 'adminUser']);
-    Route::get('/admin/rentings/list', [RentController::class, 'adminRent']);
+    Route::delete('/admin/vehicles/delete/{vehicle}', [VehicleController::class, 'destroyer'])->name('vehicle.destroy');
+
+    // users
+    Route::get('/admin/users/list', [UserController::class, 'adminUser'])->name('user.list');
+    Route::get('/admin/users/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/admin/users/create', [UserController::class, 'store'])->name('user.store');
+    Route::get('/admin/users/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('/admin/users/edit/{user}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/admin/users/delete/{user}', [UserController::class, 'destroyer'])->name('user.destroy');
+    // rentings
+    Route::get('/admin/rentings/list', [RentController::class, 'adminRent'])->name('rent.list');
+    Route::get('/admin/rentings/edit/{rent}', [RentController::class, 'edit'])->name('rent.edit');
+    Route::post('/admin/rentings/edit/{rent}', [RentController::class, 'update'])->name('rent.update');
+    Route::delete('/admin/rentings/delete/{rent}', [RentController::class, 'destroyer'])->name('rent.destroy');
+
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// con el middleware obligamos que, para acceder a cierto ubicacion de la pags
-// Route::get('/prestamos', [App\Http\Controllers\GestionController::class, 'prestamos'])->middleware('auth');

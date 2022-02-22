@@ -25,47 +25,8 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <script>
-        let date1 = "";
-        let date2 = "";
-        $( function() {
-        var dateFormat = "dd/mm/yy",
-        from = $( "#from" )
-            .datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 3
-            })
-            .on( "change", function() {
-                to.datepicker( "option", "minDate", getDate( this ) );
-                date1 = getDate(this);
-                document.getElementById("date").innerHTML = "From" + date1;
-            }),
-            to = $( "#to" ).datepicker({
-                defaultDate: "+1w",
-                changeMonth: true,
-                numberOfMonths: 3
-            })
-            .on( "change", function() {
-                from.datepicker( "option", "maxDate", getDate( this ) );
-                date2 = getDate(this);
-                document.getElementById("date").innerHTML += " To" + date2;
-
-            });
-
-            function getDate( element ) {
-                var date;
-                try {
-                    date = $.datepicker.parseDate( dateFormat, element.value );
-                } catch( error ) {
-                    date = null;
-                }
-
-                return date;
-            }
-        } );
-    </script>
-
+    {{-- calendar script --}}
+    <script type="text/Javascript" src="{{ asset('js/calendar.js') }}"></script>
 </head>
 
 <body>
@@ -80,20 +41,26 @@
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if (@Auth::user() != null)
-                @if(@Auth::user()->hasRole('admin'))
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Administration</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{{url('admin/vehicles/list')}}">Vehicles</a>
-                            <a class="dropdown-item" href="{{url('admin/users/list')}}">Users</a>
-                            <a class="dropdown-item" href="{{url('admin/rentings/list')}}">Rentings</a>
-                        </div>
-                    </li>
-                </ul>
-                @endif
-                @endif
+                {{-- Administration dropdown --}}
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    @if (@Auth::user() != null)
+                        @if (@Auth::user()->hasRole('admin'))
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item dropdown">
+                                    <a href="#" class="nav-link dropdown-toggle"
+                                        data-bs-toggle="dropdown">Administration</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/vehicles/list') }}">Vehicles</a>
+                                        <a class="dropdown-item" href="{{ url('admin/users/list') }}">Users</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/rentings/list') }}">Rentings</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        @endif
+                    @endif
+                </div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -102,8 +69,8 @@
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Vehicles</a>
                             <div class="dropdown-menu">
                                 @foreach ($categories as $categorie)
-                                <a class="dropdown-item"
-                                    href="{{url('category/'.$categorie->id)}}">{{$categorie->name}}</a>
+                                    <a class="dropdown-item"
+                                        href="{{ url('category/' . $categorie->id) }}">{{ $categorie->name }}</a>
                                 @endforeach
                             </div>
                         </li>
@@ -113,42 +80,43 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
 
-                        @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
                         @else
-                        <li class="nav-item dropdown">
+                            <li class="nav-item dropdown">
 
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-person-circle" viewBox="0 0 16 16">
-                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                                    <path fill-rule="evenodd"
-                                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
-                                </svg>
-                                {{ Auth::user()->name }}
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                                    </svg>
+                                    {{ Auth::user()->name }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
                         @endguest
                     </ul>
                 </div>
