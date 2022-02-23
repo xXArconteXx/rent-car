@@ -10,8 +10,21 @@ class Rent extends Model
 {
     use HasFactory, HasRoles;
 
-    protected $fillable = ["date_start", "date_end", "date_give", "user_id", "vehicle_id"];
+    protected $fillable = ["date_start", "date_end", "date_give", "user_id", "vehicle_id", "status"];
     // All dates that pass the dates for in or out of the bdo cross for carbon, convert dateString to type carbon
-    protected $date = ["date_start", "date_end", "date_give"];
+    protected $dates = ["date_start", "date_end", "date_give"];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function penalty(){
+        return $this->hasOne(Penalty::class);
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
 }

@@ -36,7 +36,7 @@ class VehicleController extends Controller
 
     public function create(){
         $categories = Category::all();
-        return view(route('vehicle.create', compact('categories')));
+        return view('admin.vehicles.create', compact('categories'));
     }
 
     public function store(Request $request){

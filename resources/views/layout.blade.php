@@ -43,9 +43,9 @@
                 </button>
                 {{-- Administration dropdown --}}
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    @if (@Auth::user() != null)
-                        @if (@Auth::user()->hasRole('admin'))
-                            <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto">
+                        @if (@Auth::user() != null)
+                            @if (@Auth::user()->hasRole('admin'))
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle"
                                         data-bs-toggle="dropdown">Administration</a>
@@ -55,16 +55,13 @@
                                         <a class="dropdown-item" href="{{ url('admin/users/list') }}">Users</a>
                                         <a class="dropdown-item"
                                             href="{{ url('admin/rentings/list') }}">Rentings</a>
+                                        <a class="dropdown-item"
+                                            href="{{ url('admin/penalties/list') }}">Penalties</a>
                                     </div>
                                 </li>
-                            </ul>
+                            @endif
                         @endif
-                    @endif
-                </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Vehicles</a>
                             <div class="dropdown-menu">
@@ -74,6 +71,23 @@
                                 @endforeach
                             </div>
                         </li>
+
+                        @if (@Auth::user() != null)
+                            @if (@Auth::user()->hasRole('client'))
+                                <li class="nav-item">
+                                    <a href="{{ route('my-rents') }}" class="nav-link">My Rents</a>
+                                </li>
+                            @endif
+                        @endif
+                    </ul>
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav me-auto">
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -106,8 +120,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

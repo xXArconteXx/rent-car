@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RentController;
-use App\Models\Vehicle;
+use App\Http\Controllers\PenaltyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +31,7 @@ Auth::routes();
 Route::group(['middleware' => ['role:client']], function () {
     Route::post('/content-layout/form', [RentController::class, 'store'])->name('form-rent');
     Route::get('/content-layout/acknowledge', [RentController::class, 'index'])->name('acknowledge');
+    Route::get('/content-layout/my-list-rents', [RentController::class, 'myRents'])->name('my-rents');
 });
 
 //accebility routes for admins
@@ -55,6 +56,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/rentings/edit/{rent}', [RentController::class, 'edit'])->name('rent.edit');
     Route::post('/admin/rentings/edit/{rent}', [RentController::class, 'update'])->name('rent.update');
     Route::delete('/admin/rentings/delete/{rent}', [RentController::class, 'destroyer'])->name('rent.destroy');
+
+    // penalties
+    Route::get('/admin/penalties/list', [PenaltyController::class, 'show'])->name('penalty.list');
 
 });
 

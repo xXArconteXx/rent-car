@@ -15,7 +15,7 @@ class CreatePenaltiesTable extends Migration
     {
         Schema::create('penalties', function (Blueprint $table) {
             $table->id();
-            $table->float("import");
+            $table->float("cost");
             $table->string("additional_comments");
             $table->unsignedBigInteger('rent_id')->nullable();
             $table->timestamps();

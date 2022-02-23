@@ -15,9 +15,10 @@ class CreateRentsTable extends Migration
     {
         Schema::create('rents', function (Blueprint $table) {
             $table->id();
-            $table->datetime("date_start");
-            $table->datetime("date_end");
-            $table->datetime("date_give")->nullable();
+            $table->datetime('date_start');
+            $table->datetime('date_end');
+            $table->datetime('date_give')->nullable();
+            $table->string('status')->default('expectation');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->timestamps();

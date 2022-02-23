@@ -17,8 +17,8 @@
                 <input type="text" id="categproes_id" name="categproes_id">
             </div>
             <div>
-                <label for="Description">Description:</label>
-                <input type="text" id="Description" name="Description">
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description">
             </div>
             <div>
                 <label for="seats">Seats:</label>

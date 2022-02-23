@@ -17,6 +17,11 @@
                 <div>
                     <label for="date_give">Date Give:</label>
                     <input type="text" id="date_give" name="date_give" value="{{ $rent->date_give }}">
+                    <label>Actual Time: <?= date('Y-m-d h:i:s') ?> </label>
+                </div>
+                <div>
+                    <label for="status">Status(expectation, accepted, refused):</label>
+                    <input type="text" id="status" name="status" value="{{ $rent->status }}">
                 </div>
 
                 {{-- <input type="hidden" name="vehicle_id" value="{{request()->id}}"> --}}

@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Category;
 use App\Models\Rent;
-
-
+use App\Models\User;
+use App\Models\Penalty;
 class RentController extends Controller
 {
     public function index()
@@ -22,6 +22,15 @@ class RentController extends Controller
         $categories = Category::all();
         $rents = Rent::paginate(12);
         return view('admin.rentings.list', compact('rents', 'categories'));
+    }
+
+    public function myRents()
+    {
+        $categories = Category::all();
+        $user = Auth::user();
+        // dd($user);
+        $rents = Rent::where('user_id', $user->id)->get();
+        return view('content-layout.my-list-rents', compact('rents', 'categories'));
     }
 
     public function create()
@@ -51,6 +60,7 @@ class RentController extends Controller
             "date_end" => $date2,
             "user_id" => $user_id,
             "vehicle_id" => $vehicle_id,
+            "status" => "expectation",
         ]);
         return redirect(route('acknowledge'));
     }
@@ -68,7 +78,23 @@ class RentController extends Controller
         // dd($request->all(), $vehicle);
         $categories = Category::all();
         $rent->update($request->all());
-        return redirect(route('rent.list', compact('categories')));
+        // dd($rent);
+        if($rent->date_give != null){
+            // dd($rent->date_end);
+            if($rent->date_give->equalTo($rent->date_end) || $rent->date_give->lessThan($rent->date_end) || $rent->penalty){
+                return redirect(route('rent.list', compact('categories')));
+            }
+            $subsDays = $rent->date_give->floatDiffInDays($rent->date_end);
+            $cost = $subsDays*(($rent->vehicle->price*0.1)+$rent->vehicle->price);
+            $costFormat = round($cost, 2);
+            // dd($costFormat);
+            Penalty::create([
+                'cost'=> $costFormat,
+                'additional_comments'=>'Returnd later'.round($subsDays, 2),
+                'rent_id'=>$rent->id,
+            ]);
+            return redirect(route('rent.list', compact('categories')));
+        }  
     }
 
     public function destroyer(Rent $rent)
