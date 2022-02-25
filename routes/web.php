@@ -6,6 +6,7 @@ use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RentController;
 use App\Http\Controllers\PenaltyController;
+use App\Models\Penalty;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ use App\Http\Controllers\PenaltyController;
 
 // mod seeder con datos de vehiculos
 Route::get('/', [VehicleController::class, 'viewAll']);
+Route::post('/', [VehicleController::class, 'searchIndex'])->name('index.search');
 Route::get('/category/{id}', [VehicleController::class, 'index']);
 
 Route::get('/content-layout/show-vehicle/{vehicle}', [VehicleController::class, 'show']);
@@ -38,6 +40,7 @@ Route::group(['middleware' => ['role:client']], function () {
 Route::group(['middleware' => ['role:admin']], function () {
     // vehicles
     Route::get('/admin/vehicles/list', [VehicleController::class, 'adminVeh'])->name('vehicle.list');
+    Route::post('/admin/vehicles/list', [VehicleController::class, 'search'])->name('vehicle.search');
     Route::get('/admin/vehicles/create', [VehicleController::class, 'create'])->name('vehicle.create');
     Route::post('/admin/vehicles/create', [VehicleController::class, 'store'])->name('vehicle.store');
     Route::get('/admin/vehicles/edit/{vehicle}', [VehicleController::class, 'edit'])->name('vehicle.edit');
@@ -46,6 +49,7 @@ Route::group(['middleware' => ['role:admin']], function () {
 
     // users
     Route::get('/admin/users/list', [UserController::class, 'adminUser'])->name('user.list');
+    Route::post('/admin/users/list', [UserController::class, 'search'])->name('user.search');
     Route::get('/admin/users/create', [UserController::class, 'create'])->name('user.create');
     Route::post('/admin/users/create', [UserController::class, 'store'])->name('user.store');
     Route::get('/admin/users/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
@@ -53,13 +57,17 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::delete('/admin/users/delete/{user}', [UserController::class, 'destroyer'])->name('user.destroy');
     // rentings
     Route::get('/admin/rentings/list', [RentController::class, 'adminRent'])->name('rent.list');
+    Route::post('/admin/rentings/list', [RentController::class, 'search'])->name('rent.search');
     Route::get('/admin/rentings/edit/{rent}', [RentController::class, 'edit'])->name('rent.edit');
     Route::post('/admin/rentings/edit/{rent}', [RentController::class, 'update'])->name('rent.update');
     Route::delete('/admin/rentings/delete/{rent}', [RentController::class, 'destroyer'])->name('rent.destroy');
 
     // penalties
     Route::get('/admin/penalties/list', [PenaltyController::class, 'show'])->name('penalty.list');
-
+    Route::post('/admin/penalties/list', [PenaltyController::class, 'search'])->name('penalty.search');
+    Route::get('/admin/penalties/edit/{penalty}', [PenaltyController::class, 'edit'])->name('penalty.edit');
+    Route::post('/admin/penalties/edit/{penalty}', [PenaltyController::class, 'update'])->name('penalty.update');
+    Route::delete('/admin/penalties/delete/{penalty}', [PenaltyController::class, 'destroyer'])->name('penalty.destroy');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -38,9 +38,9 @@ class UserController extends Controller
     }
 
     public function update(Request $request, User $user){
-        // Vehicle::
-        // dd($request->all(), $vehicle);
+        $categories = Category::all();
         $user->update($request->all());
+        return redirect(route('user.list', compact('categories')));
     }
 
     public function destroyer(User $user)
@@ -48,6 +48,17 @@ class UserController extends Controller
         $categories = Category::all();
         $user->delete();
         return redirect(route('user.list', compact('categories')));
+    }
+
+    public function search(Request $request)
+    {
+        $categories = Category::all();
+        // dd($request->search);
+        if($request->search!=null) {
+            $users = User::where("name", "LIKE", "%{$request->get('search')}%")->paginate(10);
+            return view('admin.users.list', compact('users', 'categories'));
+        }
+        return back(); 
     }
 
 }

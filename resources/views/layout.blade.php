@@ -75,7 +75,7 @@
                         @if (@Auth::user() != null)
                             @if (@Auth::user()->hasRole('client'))
                                 <li class="nav-item">
-                                    <a href="{{ route('my-rents') }}" class="nav-link">My Rents</a>
+                                    <a class="nav-link" href="{{ route('my-rents') }}">My Rents</a>
                                 </li>
                             @endif
                         @endif
@@ -86,7 +86,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
 
                     </ul>
 
@@ -122,7 +121,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                 document.getElementById('logout-form').submit();">
+                                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -134,6 +133,14 @@
                             </li>
                         @endguest
                     </ul>
+                    @if ( @Auth::user() == null || @Auth::user()->hasRole('client'))
+                        <form class="d-flex" method="POST" action="{{ route('rent.search') }}">
+                            @csrf
+                            <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                                aria-label="Search">
+                            <button class="btn btn-outline-secondary" style="color:black;" type="submit">Search</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </nav>

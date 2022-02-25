@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 use App\Models\Category;
+use App\Models\Vehicle;
 use App\Models\Rent;
 use App\Models\User;
 use App\Models\Penalty;
+
 class RentController extends Controller
 {
     public function index()
@@ -53,6 +55,9 @@ class RentController extends Controller
         $date2 = Carbon::createFromFormat('m/d/Y H:i', $request->to . ' ' . $request->dropoffTime);
         $user_id = Auth::user()->id;
         $vehicle_id = intval($request->vehicle_id);
+        // $subsDays = $request->date_end->floatDiffInDays($resquest->date_start);
+        // $cost = $subsDays * $resquest->vehicle->price;
+        // $costFormat = round($cost, 2);
         // dd($date1, $date2, $user_id, $vehicle_id);
 
         Rent::create([
@@ -62,6 +67,10 @@ class RentController extends Controller
             "vehicle_id" => $vehicle_id,
             "status" => "expectation",
         ]);
+
+        $vehicle = Vehicle::where("id", "=", "$vehicle_id")->update(['available'=>0]);
+        // dd($vehicle);
+        
         return redirect(route('acknowledge'));
     }
 
@@ -79,22 +88,29 @@ class RentController extends Controller
         $categories = Category::all();
         $rent->update($request->all());
         // dd($rent);
-        if($rent->date_give != null){
+        if ($rent->date_give != null) {
             // dd($rent->date_end);
-            if($rent->date_give->equalTo($rent->date_end) || $rent->date_give->lessThan($rent->date_end) || $rent->penalty){
+            if ($rent->date_give->equalTo($rent->date_end) || $rent->date_give->lessThan($rent->date_end) || $rent->penalty) {
+                $subsDays = $rent->date_end->floatDiffInDays($rent->date_start);
+                $cost = $subsDays * $rent->vehicle->price;
+                $costFormat = round($cost, 2);
+                // dd($costFormat);
+                $rent->update([
+                    'cost' => $costFormat,
+                ]);
                 return redirect(route('rent.list', compact('categories')));
             }
             $subsDays = $rent->date_give->floatDiffInDays($rent->date_end);
-            $cost = $subsDays*(($rent->vehicle->price*0.1)+$rent->vehicle->price);
+            $cost = $subsDays * (($rent->vehicle->price * 0.1) + $rent->vehicle->price);
             $costFormat = round($cost, 2);
             // dd($costFormat);
             Penalty::create([
-                'cost'=> $costFormat,
-                'additional_comments'=>'Returnd later'.round($subsDays, 2),
-                'rent_id'=>$rent->id,
+                'cost' => $costFormat,
+                'additional_comments' => 'Days Later' . round($subsDays, 2),
+                'rent_id' => $rent->id,
             ]);
             return redirect(route('rent.list', compact('categories')));
-        }  
+        }
     }
 
     public function destroyer(Rent $rent)
@@ -102,5 +118,19 @@ class RentController extends Controller
         $categories = Category::all();
         $rent->delete();
         return redirect(route('rent.list', compact('categories')));
+    }
+
+    public function search(Request $request)
+    {
+        $categories = Category::all();
+        // dd($request->search);
+        if($request->search!=null) {
+            $id = User::where("email", "LIKE", "%{$request->get('search')}%")->first('id');
+            // dd($id->id);
+            $rents = Rent::where("user_id", "=", $id->id)->paginate(10);
+            // dd($rents);
+            return view('admin.rentings.list', compact('rents', 'categories'));
+        }
+        return back();        
     }
 }

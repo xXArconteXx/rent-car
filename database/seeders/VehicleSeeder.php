@@ -35,7 +35,6 @@ class VehicleSeeder extends Seeder
                 'description' => $faker->paragraph(),
                 'seats' => $seats,
                 'price' => $seats,
-                'availability' => $faker->boolean(),
                 'image' =>'carImages/alfaromeo-giulia.png',
                 'categories_id' =>$id,
             ]);
@@ -46,7 +45,6 @@ class VehicleSeeder extends Seeder
                 'description' => $faker->paragraph(),
                 'seats' => $seats,
                 'price' => $seats,
-                'availability' => $faker->boolean(),
                 'image' =>'carImages/bmw-i3.png',
                 'categories_id' =>$id,
             ]);
@@ -57,7 +55,6 @@ class VehicleSeeder extends Seeder
                 'description' => $faker->paragraph(),
                 'seats' => $seats,
                 'price' => $seats,
-                'availability' => $faker->boolean(),
                 'image' =>'carImages/fiat-tipo.png',
                 'categories_id' =>$id,
             ]);
@@ -68,7 +65,6 @@ class VehicleSeeder extends Seeder
                 'description' => $faker->paragraph(),
                 'seats' => $seats,
                 'price' => $seats,
-                'availability' => $faker->boolean(),
                 'image' =>'carImages/jeep-renegade.png',
                 'categories_id' =>$id,
             ]);
@@ -79,7 +75,6 @@ class VehicleSeeder extends Seeder
                 'description' => $faker->paragraph(),
                 'seats' => $seats,
                 'price' => $seats,
-                'availability' => $faker->boolean(),
                 'image' =>'carImages/mercedes-vito.png',
                 'categories_id' =>$id,
             ]);

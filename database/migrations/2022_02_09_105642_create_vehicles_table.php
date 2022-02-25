@@ -19,8 +19,8 @@ class CreateVehiclesTable extends Migration
             $table->string('model', 50);
             $table->longText('description', 450);
             $table->integer('seats');
-            $table->boolean('availability')->default(true);
             $table->string('image', 80)->default('image.webp');
+            $table->boolean('available')->default(1);
             $table->float('price', 6);
             $table->unsignedBigInteger('categories_id')->nullable();
             

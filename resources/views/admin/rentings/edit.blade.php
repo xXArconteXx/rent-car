@@ -20,11 +20,18 @@
                     <label>Actual Time: <?= date('Y-m-d h:i:s') ?> </label>
                 </div>
                 <div>
-                    <label for="status">Status(expectation, accepted, refused):</label>
-                    <input type="text" id="status" name="status" value="{{ $rent->status }}">
+                    <label for="cost">Cost:</label>
+                    <input type="text" id="cost" name="cost" value="{{ $rent->cost }}">
+                </div>
+                <div>
+                    <label for="status">Status</label>
+                    <select name="status" id="status" required>
+                        <option value="expectation" selected>Expectation</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="refused">Refused</option>
+                    </select>
                 </div>
 
-                {{-- <input type="hidden" name="vehicle_id" value="{{request()->id}}"> --}}
                 <button type="submit" class="btn btn-success">
                     Confirm
                 </button>

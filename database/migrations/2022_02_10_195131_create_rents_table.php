@@ -19,6 +19,7 @@ class CreateRentsTable extends Migration
             $table->datetime('date_end');
             $table->datetime('date_give')->nullable();
             $table->string('status')->default('expectation');
+            $table->float('cost')->default(0);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('vehicle_id')->nullable();
             $table->timestamps();

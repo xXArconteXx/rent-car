@@ -9,4 +9,10 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'image'];
+
+    // eloquence relationship
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
 }
