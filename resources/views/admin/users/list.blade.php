@@ -5,7 +5,7 @@
         <h1>USERS</h1>
         <div class="container table-responsive">
             <div style="max-width: 30%; float: left;">
-                <form class="d-flex" method="POST" action="{{ route('user.search')}}">
+                <form class="d-flex" method="POST" action="{{ route('user.search') }}">
                     @csrf
                     <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn btn-primary btn-outline-secondary" style="color:black; font-weight: bold;"
@@ -44,8 +44,8 @@
                             </td>
                             <td>
                                 <a href="">
-                                    <form method="POST" action="{{ route('user.destroy', $user->id) }}"
-                                        onsubmit="window.confirm('Are you sure you want to delete the user?')">
+                                    <form method="POST" class="form-delete"
+                                        action="{{ route('user.destroy', $user->id) }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-outline-danger">
@@ -87,4 +87,36 @@
             {{ $users->links() }}
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('delete') == 'ok')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+    <script>
+        $('.form-delete').submit(function(e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            })
+        });
+    </script>
 @endsection

@@ -4,7 +4,7 @@
     <div class="container">
         <h1>VEHICLES</h1>
         <div style="max-width: 30%; float: left;">
-            <form class="d-flex" method="POST" action="{{ route('vehicle.search')}}">
+            <form class="d-flex" method="POST" action="{{ route('vehicle.search') }}">
                 @csrf
                 <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn btn-primary btn-outline-secondary" style="color:black; font-weight: bold;"
@@ -25,7 +25,7 @@
                     @foreach ($vehicles as $vehicle)
                         <tr>
                             <th scope="row">{{ $vehicle->id }}</th>
-                            <td>{{ $vehicle->categories_id }}</td>
+                            <td>{{ $vehicle->category->name }}</td>
                             <td>{{ $vehicle->model }}</td>
                             <td>
                                 <a href="{{ url('admin/vehicles/edit/' . $vehicle->id) }}">
@@ -41,10 +41,11 @@
                                 </a>
                             </td>
                             <td>
-                                <form method="POST" action="{{ route('vehicle.destroy', $vehicle->id) }}"
-                                    onsubmit="window.confirm('Are you sure you want to delete the vehicle?')">
-                                    @csrf
+                                <form method="POST" class="form-delete"
+                                    action="{{ route('vehicle.destroy', $vehicle->id) }}">
                                     @method('DELETE')
+                                    @csrf
+
                                     <button type="submit" class="btn btn-outline-danger">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                             class="bi bi-trash3-fill" viewBox="0 0 16 16">
@@ -81,5 +82,37 @@
         <div class="d-flex col-12 justify-content-center">
             {{ $vehicles->links() }}
         </div>
+    @endsection
+
+    @section('js')
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @if (session('delete') == 'ok')
+            <script>
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            </script>
+        @endif
+        <script>
+            $('.form-delete').submit(function(e) {
+                e.preventDefault();
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+        </script>
     @endsection
 </div>

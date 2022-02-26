@@ -30,7 +30,7 @@ class PenaltyController extends Controller
     {
         $categories = Category::all();
         $penalty->delete();
-        return redirect(route('penalty.list', compact('categories')));
+        return redirect(route('penalty.list', compact('categories')))->with('delete', 'ok');
     }
 
     public function search(Request $request)

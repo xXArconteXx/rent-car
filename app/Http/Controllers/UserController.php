@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         $categories = Category::all();
         $user->delete();
-        return redirect(route('user.list', compact('categories')));
+        return redirect(route('user.list', compact('categories')))->with('delete', 'ok');
     }
 
     public function search(Request $request)

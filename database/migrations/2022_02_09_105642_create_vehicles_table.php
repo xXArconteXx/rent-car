@@ -22,16 +22,15 @@ class CreateVehiclesTable extends Migration
             $table->string('image', 80)->default('image.webp');
             $table->boolean('available')->default(1);
             $table->float('price', 6);
-            $table->unsignedBigInteger('categories_id')->nullable();
-            
-            $table->foreign('categories_id')
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->foreign('category_id')
                 ->references('id')
                 ->on('categories')
                 ->onDelete('set null');
-                
-            
             $table->timestamps();
         });
+
+        
     }
 
     /**

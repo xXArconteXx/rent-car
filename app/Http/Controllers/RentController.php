@@ -38,12 +38,11 @@ class RentController extends Controller
     public function create()
     {
         $categories = Category::all();
+        // dd(Auth::user());
         if (Auth::user() != null && Auth::user()->hasRole('client')) {
-            if (Auth::user()->hasRole('client')) {
-                return view('content-layout.form', compact('categories'));
-            }
+            return view('content-layout.form', compact('categories'));
         } else {
-            return redirect(route('home'));
+            return redirect(('/login'));
         }
     }
 
@@ -111,13 +110,14 @@ class RentController extends Controller
             ]);
             return redirect(route('rent.list', compact('categories')));
         }
+        return redirect(route('rent.list', compact('categories')));
     }
 
     public function destroyer(Rent $rent)
     {
         $categories = Category::all();
         $rent->delete();
-        return redirect(route('rent.list', compact('categories')));
+        return redirect(route('rent.list', compact('categories')))->with('delete', 'ok');
     }
 
     public function search(Request $request)

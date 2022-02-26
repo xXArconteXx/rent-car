@@ -16,19 +16,15 @@ class CategorySeeder extends Seeder
     {
             DB::table('categories')->insert([
                 'name' => 'Monovolumen',
-                'image' => "image/monovolumen.webp",
             ]);
             DB::table('categories')->insert([
                 'name' => 'Furgoneta',
-                'image' => "image/furgoneta.webp",
             ]);
             DB::table('categories')->insert([
                 'name' => 'Eléctricos',
-                'image' => "image/electrico.webp",
             ]);
             DB::table('categories')->insert([
                 'name' => 'Camión',
-                'image' => "image/camion.webp",
             ]);
         
     }

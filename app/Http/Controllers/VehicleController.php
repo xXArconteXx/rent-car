@@ -82,7 +82,7 @@ class VehicleController extends Controller
     {
         $categories = Category::all();
         $vehicle->delete();
-        return redirect(route('vehicle.list', compact('categories')));
+        return redirect(route('vehicle.list', compact('categories')))->with('delete', 'ok');
     }
 
     public function search(Request $request)
