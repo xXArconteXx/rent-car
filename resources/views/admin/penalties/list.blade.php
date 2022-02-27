@@ -16,6 +16,7 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope="col">Rent ID</th>
                         <th scope="col">Cost</th>
                         <th scope="col">Comments</th>
                         <th scope="col">ACTIONS</th>
@@ -25,6 +26,7 @@
                     @foreach ($penalties as $penalty)
                         <tr>
                             <th scope="row">{{ $penalty->id }}</th>
+                            <td>{{ $penalty->rent_id }}</td>
                             <td>{{ $penalty->cost }}</td>
                             <td>{{ $penalty->additional_comments }}</td>
                             <td>

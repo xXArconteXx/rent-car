@@ -25,6 +25,7 @@
                         Not Available
                     </p>
                 @endif
+               
                 <i class="fa-solid fa-basket-shopping icon"></i>
                 <a href="{{ url('content-layout/show-vehicle/' . $v->id) }}">
                     <button type="button" class="btn btn-outline-dark">

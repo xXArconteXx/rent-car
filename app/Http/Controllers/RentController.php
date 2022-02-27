@@ -66,10 +66,9 @@ class RentController extends Controller
             "vehicle_id" => $vehicle_id,
             "status" => "expectation",
         ]);
-
-        $vehicle = Vehicle::where("id", "=", "$vehicle_id")->update(['available'=>0]);
+        $vehicle = Vehicle::find($vehicle_id)->update(['available' => 0]);
         // dd($vehicle);
-        
+
         return redirect(route('acknowledge'));
     }
 
@@ -86,9 +85,15 @@ class RentController extends Controller
         // dd($request->all(), $vehicle);
         $categories = Category::all();
         $rent->update($request->all());
+        $vehicle_id = $rent->vehicle_id;
+        // dd($request->vehicle_id);
         // dd($rent);
         if ($rent->date_give != null) {
             // dd($rent->date_end);
+            // dd($rent->vehicle_id);
+            // dd($vehicle = Vehicle::find($rent->vehicle_id));
+            // dd($vehicle_id);
+            $vehicle = Vehicle::find($vehicle_id)->update(['available' => 1]);
             if ($rent->date_give->equalTo($rent->date_end) || $rent->date_give->lessThan($rent->date_end) || $rent->penalty) {
                 $subsDays = $rent->date_end->floatDiffInDays($rent->date_start);
                 $cost = $subsDays * $rent->vehicle->price;
@@ -124,13 +129,13 @@ class RentController extends Controller
     {
         $categories = Category::all();
         // dd($request->search);
-        if($request->search!=null) {
+        if ($request->search != null) {
             $id = User::where("email", "LIKE", "%{$request->get('search')}%")->first('id');
             // dd($id->id);
             $rents = Rent::where("user_id", "=", $id->id)->paginate(10);
             // dd($rents);
             return view('admin.rentings.list', compact('rents', 'categories'));
         }
-        return back();        
+        return back();
     }
 }

@@ -35,13 +35,13 @@ class VehicleController extends Controller
     public function show(Vehicle $vehicle)
     {
         $categories = Category::all();
-        if (Auth::user() != null && $vehicle->rent != null) {
-            if ($vehicle->rent->user_id == Auth::user()->id) {
-                return redirect(route('my-rents', compact('categories')));
-            } else {
-                return Redirect::back()->withErrors(['msg' => 'The Vehicle '.$vehicle->model.' Its Already rent']);
-            }
-        }
+        // if (Auth::user() != null && $vehicle->available != 1) {
+        //     if ($vehicle->rent->user_id == Auth::user()->id) {
+        //         return redirect(route('my-rents', compact('categories')));
+        //     } else {
+        //         return Redirect::back()->withErrors(['msg' => 'The Vehicle '.$vehicle->model.' Its Already rent']);
+        //     }
+        // }
 
         //dd == varDump on Laravel
         // dd($vehicle);

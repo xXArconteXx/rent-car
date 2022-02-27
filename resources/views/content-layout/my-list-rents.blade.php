@@ -8,7 +8,7 @@
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Vehicle ID</th>
+                    <th scope="col">Model</th>
                     <th scope="col">Date Start</th>
                     <th scope="col">Date End</th>
                     <th scope="col">Date Give</th>
@@ -21,7 +21,7 @@
                     <tr>
                         <th scope="row">{{ $rent->id }}</th>
                         <td>{{ $rent->user->email }}</td>
-                        <td>{{ $rent->vehicle_id }}</td>
+                        <td>{{ $rent->vehicle->model }}</td>
                         <td>{{ $rent->date_start }}</td>
                         <td>{{ $rent->date_end }}</td>
                         <td>{{ $rent->date_give }}</td>
