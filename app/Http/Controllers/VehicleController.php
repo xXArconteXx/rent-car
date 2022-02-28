@@ -28,7 +28,7 @@ class VehicleController extends Controller
     {
         $categories = Category::all();
         $ident = intval($id) - 1;
-        $vehicles = Vehicle::where('categories_id', $id)->paginate(12);
+        $vehicles = Vehicle::where('category_id', $id)->paginate(12);
         return view('category.index', compact('vehicles', 'categories', 'ident'));
     }
 

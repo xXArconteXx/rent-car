@@ -134,7 +134,7 @@
                         @endguest
                     </ul>
                     @if ( @Auth::user() == null || @Auth::user()->hasRole('client'))
-                        <form class="d-flex" method="POST" action="{{ route('rent.search') }}">
+                        <form class="d-flex" method="POST" action="{{ route('index.search') }}">
                             @csrf
                             <input class="form-control me-2" type="search" name="search" placeholder="Search"
                                 aria-label="Search">
